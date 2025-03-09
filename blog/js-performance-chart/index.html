@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=5"
+      name="viewport"
+    />
+
+    <meta name="theme-color" content="#0c0e13">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://haakonsmith.github.io/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://haakonsmith.github.io/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://haakonsmith.github.io/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://haakonsmith.github.io/favicon/site.webmanifest"> 
+
+    <title> Haakon Smith </title>
+
+
+    <link
+      rel="stylesheet"
+      href="https://haakonsmith.github.io/main.css?h=a2710864eadec0ec6b6c"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="preconnect"
+      as="style"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      defer
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    
+<link
+  rel="stylesheet"
+  href="https://haakonsmith.github.io/blog-page.css?h=73689ed69736050819b2"
+/>
+
+<link rel="stylesheet" href="https://haakonsmith.github.io/shortcodes.css?h=d3ff4308328edb975776" />
+
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+  integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib"
+  crossorigin="anonymous"
+/>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+  integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh"
+  crossorigin="anonymous"
+></script>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+  integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh"
+  crossorigin="anonymous"
+  onload="renderMathInElement(document.body);"
+></script>
+<script defer>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      // customised options
+      // • auto-render specific keys, e.g.:
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true },
+      ],
+      // • rendering keys, e.g.:
+      throwOnError: false,
+    });
+  });
+</script>
+
+  </head>
+
+  <body>
+    <nav>
+      <a href="/"> <i class="bi bi-house"></i> Home </a>
+      <a href="https://haakonsmith.github.io/blog/"
+        ><i class="bi bi-substack"></i> Blog
+      </a>
+
+      <div class="expand"></div>
+
+      <a href="https://www.linkedin.com/in/haakon-smith-7b3ba2283/">
+        <i class="bi bi-linkedin"></i>
+      </a>
+      <a href="https://www.instagram.com/haakon_stephensen/">
+        <i class="bi bi-instagram"></i>
+      </a>
+      <a href="https://github.com/haakonsmith">
+        <i class="bi bi-github"></i>
+      </a>
+    </nav>
+
+    <main>
+      
+<section>
+  <h1 class="title">JavaScript Performance and Memory</h1>
+  <p class="subtitle"><strong>2025-02-25</strong></p>
+</section>
+<section><p>At my job, I was working on a project that required charting some data. I started, naively, with the first good looking JavaScript plugin. Chart.js, fancy,
+modern, easy to integrate, works well. However, as always, the scope was more than I could initially imagine. The size of the data was larger than I initially
+anticipated.</p>
+<h3 id="problems-with-chart-js">Problems with Chart.js</h3>
+<div class="row">
+    <figure class=fit-view>
+    <a class="action" href="https://haakonsmith.github.io/blog/js-performance-chart/chartjs-logo.png">
+    <picture>
+      <img src="https:&#x2F;&#x2F;haakonsmith.github.io&#x2F;processed_images&#x2F;chartjs-logo.c495046984bce875.webp" alt="Logo" loading="lazy" width="287" height="300">
+    </picture>
+    </a>
+</figure>
+    <figure class=fit-view>
+    <a class="action" href="https://haakonsmith.github.io/blog/js-performance-chart/chartjs-sample.png">
+    <picture>
+        <source media="(max-width: 768px)" srcset="https:&#x2F;&#x2F;haakonsmith.github.io&#x2F;processed_images&#x2F;chartjs-sample.796c85cce0a56c6d.webp" loading="lazy">
+      <img src="https:&#x2F;&#x2F;haakonsmith.github.io&#x2F;processed_images&#x2F;chartjs-sample.5c809198b4e4fb3c.webp" alt="Sample Chart" loading="lazy" width="609" height="300">
+    </picture>
+    </a>
+</figure>
+</div>
+<p>— <a href="https://www.chartjs.org/">Chart JS</a></p>
+<p>Chart.js is pretty cool, and very pretty, however that prettiness can also be it's downfall. All the eye candy can slow down the rendering, most of this can be
+disabled, but then you end up with a very not interactive chart. After going through a vast number of them<sup class="footnote-reference"><a href="#1">1</a></sup>. I found an open-source project called uPlot. It
+looked awesome. It also came with a reference to an interesting article: <a href="https://web.archive.org/web/20221208193656/https://everydayanalytics.ca/2014/08/stacked-area-graphs-are-not-your-friend.html">"Stacked Area Graphs Are Not Your
+Friend"</a>, which is an interesting
+read. To me this is a good sign when evaluating a dependency since it means the author has a passion in what they're writing.</p>
+<figure class=fit-view>
+    <a class="action" href="https://haakonsmith.github.io/blog/js-performance-chart/perf.png">
+    <picture>
+        <source media="(max-width: 768px)" srcset="https:&#x2F;&#x2F;haakonsmith.github.io&#x2F;processed_images&#x2F;perf.6ce14a5f3f480808.webp" loading="lazy">
+      <img src="https:&#x2F;&#x2F;haakonsmith.github.io&#x2F;processed_images&#x2F;perf.e2504387752193a7.webp" alt="Performance of Line Charts" loading="lazy" width="810" height="300">
+    </picture>
+    </a>
+</figure>
+<p>— <a href="https://github.com/leeoniya/uPlot?tab=readme-ov-file">uPlot GitHub</a></p>
+<p>You can see in this lovely image from the uPlot README that Chart.js uses more resources when rendering. Funnily enough, it's actually shown to be the second
+most performant in a lot of metrics. I will freely admit that potentially I did not look that hard into optimising the Chart.js performance. Once I realised
+that we would be looking at very large datasets I basically immediately went to look for the fastest library I could find.</p>
+<p>So after half a day rebuilding the chart with this library:</p>
+<div class="row">
+    <video preload="none" class="medium-img" controls  controls>
+    <source src="https://haakonsmith.github.io/blog/js-performance-chart/recording.mp4" type="video/mp4" />
+    Your browser doesn't support the video.
+</video>
+</div>
+<p>Hallelujah! High performance charting with large datasets<sup class="footnote-reference"><a href="#2">2</a></sup>. It was happy days from then on...</p>
+<h3 id="streaming-data">Streaming Data</h3>
+<p>Scope always creeps, and the code that was powering this charting library that displays static data was now needed to display live data.</p>
+<p>Well I think, there are <a href="https://leeoniya.github.io/uPlot/demos/stream-data.html">demos for this</a>, slap that together and look at that streaming in data.</p>
+<div class="row">
+    <video preload="none" class="medium-img" controls  controls>
+    <source src="https://haakonsmith.github.io/blog/js-performance-chart/streaming.mp4" type="video/mp4" />
+    Your browser doesn't support the video.
+</video>
+</div>
+<p>Looks pretty slick right? (That was a joke, this test data is just noise...) Well it works well on my M2 Max chip. But I was getting reports that it was going
+pretty slowly on some other computers. So I found one that could replicate, took a profile:</p>
+<figure class=fit-view>
+    <a class="action" href="https://haakonsmith.github.io/blog/js-performance-chart/image-1.png">
+    <picture>
+      <img src="https:&#x2F;&#x2F;haakonsmith.github.io&#x2F;processed_images&#x2F;image-1.479164361101c753.webp" alt="Inverse Flame Graph 1" loading="lazy" width="641" height="300">
+    </picture>
+    </a>
+</figure>
+<p>Zooming into that one chunk that's doing something:</p>
+<figure class=fit-view>
+    <a class="action" href="https://haakonsmith.github.io/blog/js-performance-chart/image-2.png">
+    <picture>
+        <source media="(max-width: 768px)" srcset="https:&#x2F;&#x2F;haakonsmith.github.io&#x2F;processed_images&#x2F;image-2.49192b417a8529b5.webp" loading="lazy">
+      <img src="https:&#x2F;&#x2F;haakonsmith.github.io&#x2F;processed_images&#x2F;image-2.12d800ddd6aa5299.webp" alt="Inverse Flame Graph 1 (Zoomed)" loading="lazy" width="914" height="300">
+    </picture>
+    </a>
+</figure>
+<p>So where's the issue? It's clearly doing the work, primarily spending time building paths for the plot. This stumped me for a bit. 80% of the time is spent on literally nothing! It's just an empty task that's going for too long. This was really confusing, but the hint came here:</p>
+<figure class=fit-view>
+    <a class="action" href="https://haakonsmith.github.io/blog/js-performance-chart/image-3.png">
+    <picture>
+      <img src="https:&#x2F;&#x2F;haakonsmith.github.io&#x2F;processed_images&#x2F;image-3.9b51e5b569e232c4.webp" alt="Pi Chart 1" loading="lazy" width="544" height="300">
+    </picture>
+    </a>
+</figure>
+<p>What's that? 75% of the time is being used by 'system'. First result on Google is <a href="https://stackoverflow.com/questions/36460614/what-does-the-system-category-of-records-mean-in-chrome-timeline-profiling-too">this</a>. Which if you follow that down basically tells you that it's, computer things... Anything that's not specifically profiled, which is not helpful. Well off to task manager to see what the computers doing.</p>
+<figure class=fit-view>
+    <a class="action" href="https://haakonsmith.github.io/blog/js-performance-chart/image-4.png">
+    <picture>
+      <img src="https:&#x2F;&#x2F;haakonsmith.github.io&#x2F;processed_images&#x2F;image-4.fbdf384c920ecc53.webp" alt="Task Manager" loading="lazy" width="312" height="210">
+    </picture>
+    </a>
+</figure>
+<p>This was during the data streaming of the chart. That's a lot of faults... I think. It came to me at that moment that I have no idea what a hard fault is, but
+it was the only thing out of the ordinary on the computer.</p>
+<blockquote>
+<p>Hard faults are also known as page faults. Despite the negative connotation of the name, this is not an error condition. Rather, it represents an instance
+where a block of memory needed by the operating system or an application has to be fetched from the page file on the hard disk instead of from physical memory.
+A consistently high number of hard faults per second indicates a large—perhaps excessive—reliance on virtual memory, with consequent adverse performance
+effects.
+— Source: <a href="https://learn.microsoft.com/en-us/previous-versions/technet-magazine/ff382715(v=msdn.10)?redirectedfrom=MSDN">Microsoft</a></p>
+</blockquote>
+<p>So basically, it's memory that I've likely asked for and the computer has gone: "No wait, we can't actually provide that amount of memory from ram, we'll fault
+to disk". This was my first clue that it was memory related, but still I had no idea why this would be an issue, yes it probably generated a lot of garbage but
+it's JavaScript...</p>
+<p>So let's dig into the code. The only api for updating the chart is a function called <code>setData(data: number[])</code> which as you would guess, updates the entire
+chart with the provided data. But that's probably not that bad, since arrays are pass by reference in JavaScript.</p>
+<p>These are the first few lines:</p>
+<pre data-lang="ts" style="background-color:#2b303b;color:#c0c5ce;" class="language-ts "><code class="language-ts" data-lang="ts"><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">setData</span><span>(</span><span style="color:#bf616a;">_data</span><span>, </span><span style="color:#bf616a;">_resetScales</span><span>) {
+</span><span>    </span><span style="color:#bf616a;">data </span><span>= </span><span style="color:#bf616a;">_data </span><span>== </span><span style="color:#d08770;">null </span><span>? [] : </span><span style="color:#8fa1b3;">copy</span><span>(</span><span style="color:#bf616a;">_data</span><span>, </span><span style="color:#bf616a;">fastIsObj</span><span>);
+</span></code></pre>
+<p>Yep, that's exactly what you'd expect, it copies the entire array every time you update the data. I had looked around on the uPlot github and found this issue:
+<a href="https://github.com/leeoniya/uPlot/issues/62">implement .addData() API</a>. It's still open at the time of writing, apparently blocked by a chrome issue.</p>
+<p>However, I was pretty sure my issue wasn't related stroking performance, but memory. To quote my issue:</p>
+<blockquote>
+<p>My use case had about 60 series on the chart, each being sampled at roughly 15hz and displaying at maximum the last 20 seconds of data. This results in a data
+set that is 15hz * 20s=300 points per series, with 60 series is 18,000 javascript numbers, at 64bits (8 bytes) per number, that means that I was trying to copy
+about 8 * 18,000=144,000bytes = 140kb every time the chart updated (I think my math is correct 😅) — <a href="https://github.com/leeoniya/uPlot/issues/890">Relevant
+Issue</a></p>
+</blockquote>
+<p>To expand on those calculations. The chart stored a list of data growing, so if was I was sampling 60 series every sample that is $60 \times 8 = 480$ bytes.
+If we are sampling at 15hz then the data is growing at a rate of $15 \times 480 = 7,200$ bytes per second. However it's actually way worse than that since it
+is copying the entire array on update, so it's cumlative. Hence the number of bytes we copy grows. So after 20 seconds we would need to copy 144,000 bytes of data.
+This is bad algorithmic and has a fairly simple fix, only hand the data that the chart will show, so if we had it at 7 seconds of history, we only need to update
+50,400 bytes every update.</p>
+<p>That means I was likely generating about 50kb of garbage every second, since the whole old array gets thrown out. Updating that much data would make sense to slow down
+computers with slower ram, so I added a quick patch to just not copy the data. This made a big improvement!!! It's all faster and life is happy.</p>
+<h3 id="memory-copying">Memory Copying</h3>
+<p><em>Guesses incoming</em></p>
+<p>This is mostly just my posulations but, a modern computer should be able to allocate this much memory very easily, but what was likely hindering performance was
+the way the allocations were done. This is not just allocating that much per second, there would be a lot more different minor allocations. Furthermore, the GC
+passes would likely let the memory accumulate then destroy it. Noting it was performing worse on MacOS than Windows, but that system also had way more memory.
+These systems had either 16GB or 8GB of ram, so they could just be running out of ram plain and simple, this could massively exacerbate the performance issues,
+and aligns with the hard faults metric.</p>
+<!-- So obviously this was copying a lot of memory -->
+<h3 id="the-rewrite">The rewrite</h3>
+<p>We rebuilt the entire site in Nuxt. For reference that chart was embedded in a client-side Vue application. Honestly, short review, it's awesome, really enjoyed
+Nuxt. Used <a href="https://ui.nuxt.com/getting-started">Nuxt UI</a>, and it was faster than PrimeVue which we left behind. However, once this was basically entirely done,
+people were reporting that the new live chart is slower. This baffled me as it's actually identical, and I couldn't replicate it on my MacBook.</p>
+<p>One more thing to know about the system, is that it sends out a heartbeat message, but when the live viewer gets overloaded, it fails to send out the heartbeat,
+and the other end of the pipe shuts off. This was observed in that it would just stop working.</p>
+<p>I learnt on my previous optimisation journey, that allocation sampling is a very helpful metric. So I skipped straight to that, saw that half the allocated
+memory was on parsing the input data. Optimised that and bam! No improvements. Okay let's step back, profile generally.</p>
+<figure class=fit-view>
+    <a class="action" href="https://haakonsmith.github.io/blog/js-performance-chart/image-5.png">
+    <picture>
+        <source media="(max-width: 768px)" srcset="https:&#x2F;&#x2F;haakonsmith.github.io&#x2F;processed_images&#x2F;image-5.35ecd60e10f1effd.webp" loading="lazy">
+      <img src="https:&#x2F;&#x2F;haakonsmith.github.io&#x2F;processed_images&#x2F;image-5.7357429038ceca59.webp" alt="Inverse Flame Graph 2" loading="lazy" width="918" height="300">
+    </picture>
+    </a>
+</figure>
+<p>Look at that, isn't that a crazy. Chrome shows no profile data for a whole pile of time. I found this term very hard to search for, this was the only relevant
+<a href="https://stackoverflow.com/questions/62293891/task-in-chromes-javascript-profiler-taking-longer-but-no-functions-being-cal">Stack Overflow post</a>.
+Not having found that at the time, I looked into the recalculate styles.</p>
+<figure class=fit-view>
+    <a class="action" href="https://haakonsmith.github.io/blog/js-performance-chart/image-6.png">
+    <picture>
+      <img src="https:&#x2F;&#x2F;haakonsmith.github.io&#x2F;processed_images&#x2F;image-6.7b37d3091f77da28.webp" alt="Inverse Flame Graph 2 (Zoomed)" loading="lazy" width="461" height="300">
+    </picture>
+    </a>
+</figure>
+<p>We can see that we're getting three recalculate styles! We didn't have that last time. We also see the system time is very high as was before.</p>
+<p>So I assumed it was memory allocation still, but that makes little sense since the old code still works... So after looking into it more, the nodal depth of
+this new version was far deeper. Which would make the recalculate styles. Fixing this was fairly easy CSS fix, basically just make things have more fixed widths
+where possible. This massively improved the problem. So without clear proof, my guess is that the recalculate styles was triggering some form of context issue
+with the graph? Purely speculation.</p>
+<div class="column">
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>I was shocked to see how
+many paid libraries there are for this, Lightning charts and high charts come to mind. Lightning charts looks tempting but high
+charts, insofar as I am aware is just an svg based library... (does any one pay for them??).</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>it's a bit slower in that example because Safari is not as fast as Chrome at <a href="https://smus.com/canvas-vs-svg-performance/">canvas drawing</a>.</p>
+</div>
+</div>
+</section>
+
+<script></script>
+
+    </main>
+
+    <footer>
+      <div>Haakon Smith © 2025</div>
+    </footer>
+  </body>
+</html>
